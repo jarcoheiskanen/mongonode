@@ -1,0 +1,6 @@
+[
+    {"URL": "/api/alerts", "URLTYPE": "none", "METHOD": "GET"},
+    {"URL": "/api/alerts", "URLTYPE": "none", "METHOD": "POST"},
+    {"URL": "none", "URLTYPE": "match", "METHOD": "PUT"},
+    {"URL": "none", "URLTYPE": "match", "METHOD": "DELETE"}
+]
