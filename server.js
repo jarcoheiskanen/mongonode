@@ -1,20 +1,25 @@
 const HTTP = require("http");
-let ALERTS = require("./data/alerts")
-let METHODS = require("./data/methods")
+const METHODS = require("./data/methods")
+const { getAlerts } = require("./controllers/controlAlerts")
 
 const SERVER = HTTP.createServer((req, res) => {
+
+    const id = req.url.split("/")[3]
+    console.log(id)
 
     for (let index in METHODS) {
         const table = METHODS[index];
         if ( ((table.URLTYPE == "match" && String(req.url).match(/\/api\/alerts\/\w+/)) || req.url == table.URL) && req.method == table.METHOD) {
             if (table.URLTYPE == "match") {
-                const id = req.url.split('/')[3];
                 console.log(table.METHOD + " request: " + res.statusCode);
                 console.log("ID: " + id);
+                if (table.METHOD == "GET") {
+                    console.log(id)
+                    getAlerts(req, res, id)
+                };
             } else {
                 console.log(table.METHOD + " " + res.statusCode);
             };
-            res.end(JSON.stringify(ALERTS));
             return;
         };
     };
