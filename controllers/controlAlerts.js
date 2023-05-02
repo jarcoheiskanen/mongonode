@@ -2,12 +2,30 @@
 const Alert = require("../models/handleAPIRequest")
 const { writeDataToFile, getPostData } = require("../writeToFile")
 
+const { MongoClient } = require("mongodb");
+const url = "mongodb://127.0.0.1:27017/";
+const client = new MongoClient(url);
+const dbName = "mongodb";
+
+
 async function getAlerts(req, res, id) {
 
     try {
         const alerts = await Alert.findAll();
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(alerts));
+
+        await client.connect();
+        console.log("Connected successfully!");
+        const db = client.db(dbName);
+        const collection = db.collection("button");
+        const findResult = await collection.find({}).toArray();
+        console.log(findResult);
+        client.close();
+
+        res.writeHead(201, { "Content-Type": 'application/json' })
+        return res.end(JSON.stringify(alerts))
+
     } catch (error) {
         console.log(error);
     };
