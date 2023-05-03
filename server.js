@@ -1,6 +1,6 @@
 const HTTP = require("http");
 const METHODS = require("./data/methods")
-const { getAlerts, createAlert, deleteAlert, updateData } = require("./controllers/controlAlerts")
+const { getAlerts, getAlert, createAlert, deleteAlert, updateData } = require("./controllers/controlAlerts")
 
 
 // Creating server.
@@ -22,7 +22,11 @@ const SERVER = HTTP.createServer((req, res) => {
 
                 if (table.METHOD == "GET") {
                     console.log(id)
-                    getAlerts(req, res, id)
+                    if (id) {
+                        getAlert(req, res, id)
+                    } else {
+                        getAlerts(req, res, id)
+                    }
                 } else if (table.METHOD == "POST") {
                     console.log("create:", id)
                     createAlert(req, res)

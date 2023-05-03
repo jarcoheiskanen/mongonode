@@ -2,35 +2,55 @@
 const Alert = require("../models/handleAPIRequest")
 const { writeDataToFile, getPostData } = require("../writeToFile")
 
-const { MongoClient } = require("mongodb");
-const url = "mongodb://127.0.0.1:27017/";
+const { MongoClient, ObjectId } = require("mongodb");
+const url = "mongodb+srv://testUser:bossgaming725@tietokanta-001.9ggrzmv.mongodb.net/MongoDB_Test";
 const client = new MongoClient(url);
-const dbName = "mongodb";
+const dbName = "MongoDB_Test";
 
 
 async function getAlerts(req, res, id) {
 
     try {
-        const alerts = await Alert.findAll();
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(alerts));
 
         await client.connect();
-        console.log("Connected successfully!");
+
         const db = client.db(dbName);
-        const collection = db.collection("button");
+        const collection = db.collection("MongoDB_Test_Collection");
         const findResult = await collection.find({}).toArray();
+
         console.log(findResult);
         client.close();
-
+    
         res.writeHead(201, { "Content-Type": 'application/json' })
-        return res.end(JSON.stringify(alerts))
-
+        return res.end(JSON.stringify(findResult))
+        
     } catch (error) {
         console.log(error);
     };
 
 };
+
+async function getAlert(req, res, id) {
+    
+    try {
+
+        await client.connect();
+
+        const db = client.db(dbName);
+        const collection = db.collection("MongoDB_Test_Collection");
+        const findResult = await collection.find({"_id": new ObjectId(id)}).toArray();
+
+        console.log("--", findResult);
+        client.close();
+    
+        res.writeHead(201, { "Content-Type": 'application/json' })
+        return res.end(JSON.stringify(findResult))
+        
+    } catch (error) {
+        console.log(error);
+    };
+}
+
 
 async function deleteAlert(res, id) {
 
@@ -83,6 +103,11 @@ async function createAlert(req, res) {
 
     try {
 
+        await client.connect();
+
+        const db = client.db(dbName);
+        const collection = db.collection("MongoDB_Test_Collection");
+
         const body = await getPostData(req);
         const { name, code, status } = JSON.parse(body);
         const alert = {
@@ -90,13 +115,14 @@ async function createAlert(req, res) {
             code,
             status
         };
+
+        collection.insertMany([alert])
+        console.log(alert)
         
-        console.log(body)
-
-        const newAlert = await Alert.create(alert);
-
+        client.close();
+    
         res.writeHead(201, { "Content-Type": 'application/json' })
-        return res.end(JSON.stringify(newAlert))
+        return res.end(JSON.stringify(alert))
 
     } catch (error) {
         console.log(error)
@@ -107,6 +133,7 @@ async function createAlert(req, res) {
 
 module.exports = {
     getAlerts,
+    getAlert,
     createAlert,
     deleteAlert,
     updateData
