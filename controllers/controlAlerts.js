@@ -36,7 +36,7 @@ async function getAlert(req, res, id) {
 
         await client.connect();
 
-        const db = client.db(dbName);
+        const db = client.db();
         const collection = db.collection("MongoDB_Test_Collection");
         const findResult = await collection.find({"_id": new ObjectId(id)}).toArray();
 
@@ -103,11 +103,6 @@ async function createAlert(req, res) {
 
     try {
 
-        await client.connect();
-
-        const db = client.db(dbName);
-        const collection = db.collection("MongoDB_Test_Collection");
-
         const body = await getPostData(req);
         const { name, code, status } = JSON.parse(body);
         const alert = {
@@ -116,9 +111,13 @@ async function createAlert(req, res) {
             status
         };
 
-        collection.insertMany([alert])
+        await client.connect();
+
+        const db = client.db(dbName);
+        const collection = db.collection("MongoDB_Test_Collection");
+        const result = await collection.insertMany([alert])
+
         console.log(alert)
-        
         client.close();
     
         res.writeHead(201, { "Content-Type": 'application/json' })
