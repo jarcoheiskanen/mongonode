@@ -59,6 +59,14 @@ async function deleteAlert(res, id) {
         return x.id != id;
     })
 
+    await client.connect();
+
+    const db = client.db(dbName);
+    const collection = db.collection("MongoDB_Test_Collection");
+    const result = await collection.deleteOne({"_id": new ObjectId(id)})
+
+    console.log(result)
+
     if (process.env.NODE_ENV !== 'test') {
         writeDataToFile('./data/alerts.json', newAlerts);
     };
@@ -73,9 +81,11 @@ async function updateData(req, res, id) {
     try {
         const alert = await Alert.findById(id);
 
+        console.log(alert)
+
         if (!alert) {
             res.writeHead(404, { "Content-Type": 'application/json' })
-            res.end(KSON.stringify({ message: "Alert not found" }))
+            res.end(JSON.stringify({ message: "Alert not found" }))
         } else {
 
             const body = await getPostData(req)
@@ -87,10 +97,19 @@ async function updateData(req, res, id) {
             };
 
             const updAlert = await Alert.update(id, alertData);
+            console.log("UPDATED ALERT:", updAlert)
 
-            res.writeHead(200, { "Content-Type": "application/json" });
-            return res.end(JSON.stringify(updAlert));
+            await client.connect();
 
+            const db = client.db(dbName);
+            const collection = db.collection("MongoDB_Test_Collection");
+            const result = await collection.updateOne({"_id": new ObjectId(id)}, {$set: alertData})
+    
+            console.log(updAlert, result)
+            client.close();
+        
+            res.writeHead(201, { "Content-Type": 'application/json' })
+            return res.end(JSON.stringify(updAlert))
         }
 
     } catch (error) {
@@ -117,6 +136,7 @@ async function createAlert(req, res) {
         const collection = db.collection("MongoDB_Test_Collection");
         const result = await collection.insertMany([alert])
 
+        alert["id"] = alert["_id"]
         console.log(alert)
         client.close();
     

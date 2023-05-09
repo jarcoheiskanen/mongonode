@@ -1,0 +1,77 @@
+
+
+* {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+body {
+    background-color: rgb(255, 255, 255)
+}
+
+.centerDiv {
+    width: 50vw;
+    height: auto;
+    display: block;
+    margin-top: 25vh;
+    border-radius: 2.5vh;
+    outline: rgba(0, 0, 0, .5) solid .5vh;
+    background-color: rgba(0, 0, 0, .15);
+    box-shadow: 10px 20px 10px rgba(0, 0, 0, .1);
+    padding-bottom: 1vh;
+}
+
+.titleText {
+    padding-bottom: 2vh;
+    padding-top: 4vh;
+    font-size: 5vh;
+}
+
+.inputBox {
+    width: 80%;
+    height: 5vh;
+    font-size: 2vh;
+    border-radius: 1.5vh;
+    border: 0px;
+    outline: rgba(0, 0, 0, .5) solid .5vh;
+    padding: 1%;
+    margin-bottom: 2vh;
+}
+
+.sendButton {
+    width: 50%;
+    height: 5vh;
+    font-size: 2vh;
+    border-radius: 1vh;
+    border: 0px;
+    outline: rgba(0, 0, 0, .5) solid .5vh;
+    padding: 1%;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+}
+
+.messageBox {
+    width: 80%;
+    height: auto;
+    word-break: break-all;
+    font-size: 2vh;
+    border-radius: 1.5vh;
+    border: 0px;
+    outline: rgba(0, 0, 0, .5) solid .5vh;
+    padding: 1%;
+    margin-bottom: 2vh;
+    background-color: rgb(255, 255, 255)
+}
+
+.nameText {
+    padding-top: .5vh;
+    padding-bottom: .5vh;
+    font-weight: bold;
+    font-size: 2.5vh;
+    text-align: left;
+}
+
+.messageText {
+    padding-bottom: .5vh;
+    font-size: 2vh;
+    text-align: left;
+}
