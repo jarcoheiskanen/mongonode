@@ -1,14 +1,14 @@
 
 const Alert = require("../models/handleAPIRequest")
 const { writeDataToFile, getPostData } = require("../writeToFile")
+const dbName = "MongoDB_Test";
 
 const { MongoClient, ObjectId } = require("mongodb");
 const url = "mongodb+srv://testUser:bossgaming725@tietokanta-001.9ggrzmv.mongodb.net/MongoDB_Test";
 const client = new MongoClient(url);
-const dbName = "MongoDB_Test";
 
 
-async function getAlerts(req, res, id) {
+async function getAlerts(req, res) {
 
     try {
 
@@ -65,7 +65,8 @@ async function deleteAlert(res, id) {
     const collection = db.collection("MongoDB_Test_Collection");
     const result = await collection.deleteOne({"_id": new ObjectId(id)})
 
-    console.log(result)
+    client.close();
+    console.log(result);
 
     if (process.env.NODE_ENV !== 'test') {
         writeDataToFile('./data/alerts.json', newAlerts);
@@ -122,15 +123,19 @@ async function createAlert(req, res) {
 
     try {
 
-        const body = await getPostData(req);
-        const { name, code, status } = JSON.parse(body);
+        console.log("s")
+
+        //const body = await getPostData(req);
+        const { name, code, status } = req.body;
         const alert = {
             name,
             code,
             status
         };
 
+        console.log("s")
         await client.connect();
+        console.log("d")
 
         const db = client.db(dbName);
         const collection = db.collection("MongoDB_Test_Collection");

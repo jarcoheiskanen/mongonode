@@ -11,14 +11,17 @@ function writeDataToFile(filename, content) {
 function getPostData(req) {
     return new Promise((resolve, reject) => {
         try {
+            console.log(1)
             let body = '';
             req.on('data', (chunk) => {
                 body += chunk.toString();
             });
 
+            console.log(body)
             req.on('end', () => {
                 resolve(body);
             });
+            console.log(body)
         } catch (error) {
             reject(error)
         }

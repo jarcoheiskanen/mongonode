@@ -9,6 +9,7 @@ function findAll() {
 };
 
 function findById(id) {
+    console.log(id, alerts)
     return new Promise((resolve, reject) => {
         const alert = alerts.find((a) => a.id == id)
         resolve(alert);
