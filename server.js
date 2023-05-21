@@ -52,6 +52,7 @@ app.post('/api/alerts', (req, res) => {
 // PUT
 
 app.put('/api/alerts/:id', (req, res) => {
+    console.log("PUT REQUEST")
     const id = req.url.split("/")[3]
     console.log("CHANGING:", id)
     updateData(req, res, id)

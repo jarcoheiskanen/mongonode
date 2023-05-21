@@ -43,21 +43,29 @@ function CreateText(Class, Name, Message, id, res) {
             holder.remove();
         });
         
-        editDiv.addEventListener("click", async function() {
+        editDiv.addEventListener("click", () => {
 
             const namePrompt = prompt("Enter new Name")
             const statusPrompt = prompt("Enter new Status")
             const codePrompt = prompt("Enter new Code")
 
-            const response = await fetch(`http://localhost:5000/api/alerts/${id}`, {
+            console.log("EDITED:", `http://localhost:5000/api/alerts/${id}`, JSON.stringify({name: namePrompt, status: statusPrompt, code: codePrompt}))
+
+            fetch(`http://localhost:5000/api/alerts/${id}`, {
                 method: 'PUT',
-                body: JSON.stringify({name: namePrompt, status: statusPrompt, code: codePrompt}),
                 headers: {
                     "Content-Type": "application/json"
-                }
-            }).then((response) => response.json())
+                },
+                body: JSON.stringify({
+                    name: namePrompt,
+                    status: statusPrompt,
+                    code: codePrompt
+                }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error))
 
-            console.log("EDITED:", response)
             holder.remove();
 
             CreateText(codePrompt, namePrompt, statusPrompt, id)

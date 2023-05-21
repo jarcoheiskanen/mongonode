@@ -79,18 +79,20 @@ async function deleteAlert(res, id) {
 
 async function updateData(req, res, id) {
 
+    console.log("ASDASDJIOASDJIOASDJIOASDJIO")
+
     try {
         const alert = await Alert.findById(id);
-
-        console.log(alert)
+        console.log("UPDATING:", alert)
 
         if (!alert) {
             res.writeHead(404, { "Content-Type": 'application/json' })
             res.end(JSON.stringify({ message: "Alert not found" }))
         } else {
 
-            const body = await getPostData(req)
-            const {name, code, status} = JSON.parse(body)
+            console.log("REQUEST:", req.body)
+            const {name, code, status} = req.body
+
             const alertData = {
                 name: name || alert.name,
                 code: code || alert.code,
@@ -106,7 +108,6 @@ async function updateData(req, res, id) {
             const collection = db.collection("MongoDB_Test_Collection");
             const result = await collection.updateOne({"_id": new ObjectId(id)}, {$set: alertData})
     
-            console.log(updAlert, result)
             client.close();
         
             res.writeHead(201, { "Content-Type": 'application/json' })
