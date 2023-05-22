@@ -20,9 +20,7 @@ function update(id, alert) {
     return new Promise((resolve, reject) => {
         const index = alerts.findIndex((a) => a.id.toString() === id.toString())
         alerts[index] = {id, ...alert}
-        console.log(id, index)
         writeDataToFile('./data/alerts.json', alerts);
-        console.log(alert, alerts[index])
         resolve(alerts)
     })
 }
