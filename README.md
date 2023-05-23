@@ -3,4 +3,17 @@
 ---------------------------------------------------------------------------------
 
 Aloita PHP server.
-Mene osoitteeseen http://localhost:8000/front/html/teacher.html tai http://localhost:8000/front/html/student.html.
+Aloita server.js nodella vs codessa.
+
+```
+cd Desktop\mongonode\mongonode
+php\php -S localhost:8000
+```
+
+```
+node server.js
+```
+
+
+<http://localhost:8000/front/html/teacher.html>[Opettajan Sivu (get, edit, delete)]
+<http://localhost:8000/front/html/student.html>[Oppilaan Sivu (send)]
