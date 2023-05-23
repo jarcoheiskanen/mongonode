@@ -20,6 +20,14 @@ async function getAlerts(req, res) {
 
         console.log(findResult);
         client.close();
+
+        for (let index in findResult) {
+            findResult[index].id = findResult[index]._id
+        }
+
+        if (process.env.NODE_ENV !== 'test') {
+            writeDataToFile('./data/alerts.json', findResult);
+        };
     
         res.writeHead(201, { "Content-Type": 'application/json' })
         return res.end(JSON.stringify(findResult))
