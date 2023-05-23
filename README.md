@@ -16,6 +16,8 @@ node server.js
 
 
 []
-[http://localhost:8000/front/html/student.html](Oppilaan Sivu) (send)
+[](Oppilaan Sivu) (send)
+
+[moi](http://localhost:8000/front/html/student.html)  
 
 <a href="[#the-header](http://localhost:8000/front/html/teacher.html)">Opettajan Sivu (get, send, delete)r</a>
