@@ -14,5 +14,5 @@ php\php -S localhost:8000
 node server.js
 ```
 
-### [Oppilaan Sivu (send)](http://localhost:8000/front/html/student.html)
-### [Opettajan Sivu (get, send, delete)](http://localhost:8000/front/html/teacher.html)
+### [Oppilaan Sivu](http://localhost:8000/front/html/student.html) <font size="5">(send)</font>
+### [Opettajan Sivu](http://localhost:8000/front/html/teacher.html) <font size="5">(get, send, delete)</font>
