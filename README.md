@@ -15,5 +15,5 @@ node server.js
 ```
 
 
-<http://localhost:8000/front/html/teacher.html>[Opettajan Sivu (get, edit, delete)]
-<http://localhost:8000/front/html/student.html>[Oppilaan Sivu (send)]
+[http://localhost:8000/front/html/teacher.html](Opettajan Sivu) (get, send, delete)
+[http://localhost:8000/front/html/student.html](Oppilaan Sivu) (send)
